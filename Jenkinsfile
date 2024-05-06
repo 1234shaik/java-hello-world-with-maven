@@ -1,21 +1,15 @@
-pipeline{
-    agent any
-
-    tools {
-         maven 'maven'
-         jdk 'java'
+pipeline {
+  agent any
+  stages {
+    stage("SCM") {
+      steps {
+        git 'https://github.com/1234shaik/Spring_Boot_Project.git'
+      }
     }
-
-    stages{
-        stage('checkout'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github access', url: 'https://github.com/sreenivas449/java-hello-world-with-maven.git']]])
-            }
-        }
-        stage('build'){
-            steps{
-               bat 'mvn package'
-            }
-        }
+    stage("Build") {
+      steps {
+        bat 'mvn clean install'
+      }
     }
+  }
 }
