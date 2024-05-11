@@ -1,12 +1,10 @@
 pipeline {
   agent any
+  tools {
+    maven 'Maven 3.9.6'
+  }
   stages {
-    stage("SCM") {
-      steps {
-        git 'https://github.com/1234shaik/Spring_Boot_Project.git'
-      }
-    }
-    stage("Build") {
+    stage('Build') {
       steps {
         sh 'mvn clean install'
       }
